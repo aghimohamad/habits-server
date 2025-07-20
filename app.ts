@@ -9,8 +9,18 @@ import cors from "cors";
 import logRouter from "./routes/log.route.ts";
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:8081", // For local development
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // if you use cookies or authentication
+  })
+);
+
 app.use(express.json());
-app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/api/v1/habits", habitRouter);
